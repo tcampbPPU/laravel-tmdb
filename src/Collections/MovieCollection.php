@@ -2,8 +2,8 @@
 
 namespace Tcamp\Tmdb\Collections;
 
-use Tcamp\Tmdb\Models\Movie;
 use Illuminate\Support\Collection;
+use Tcamp\Tmdb\Models\Movie;
 
 /**
  * @method Movie first(callable $callback = null, $default = null)

@@ -1,9 +1,5 @@
 <?php
 
-use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertInstanceOf;
-use function PHPUnit\Framework\assertNotEquals;
-use function PHPUnit\Framework\assertTrue;
 
 test('test it works', function () {
     httpClient()->fake([

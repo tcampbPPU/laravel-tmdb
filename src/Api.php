@@ -93,7 +93,7 @@ class Api
             throw new AuthenticationException($this->latestResponse->body());
         }
 
-        if (!$this->latestResponse->successful()) {
+        if (! $this->latestResponse->successful()) {
             throw new Exception($this->latestResponse->body());
         }
 
