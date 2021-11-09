@@ -12,12 +12,31 @@ class Api
 {
     public HttpClient $httpClient;
     public Response $latestResponse;
+
+    // Utilizing version 3 of the API
     protected string $baseUrl = 'https://api.themoviedb.org/3/';
 
     public function __construct(
         protected string $token
     ) {
         $this->httpClient = new HttpClient();
+    }
+
+    /**
+     * Perform a GET request
+     *
+     * @param  string  $endpoint
+     * @param  null|array  $query
+     * @return Response
+     *
+     * @throws AuthenticationException
+     * @throws Exception
+     */
+    public function get(string $endpoint, ?array $query = null): Response
+    {
+        $this->latestResponse = $this->request()->get($endpoint, $query);
+
+        return $this->response();
     }
 
     /**
@@ -41,23 +60,6 @@ class Api
     }
 
     /**
-     * Perform a GET request
-     *
-     * @param  string  $endpoint
-     * @param  null|array  $query
-     * @return Response
-     *
-     * @throws AuthenticationException
-     * @throws Exception
-     */
-    public function get(string $endpoint, ?array $query = null): Response
-    {
-        $this->latestResponse = $this->request()->get($endpoint, $query);
-
-        return $this->response();
-    }
-
-    /**
      * Perform a DELETE request
      * @param  string  $endpoint
      * @param  array  $data
@@ -73,6 +75,11 @@ class Api
         return $this->response();
     }
 
+    /**
+     * Standardized request format
+     *
+     * @return PendingRequest
+     */
     protected function request(): PendingRequest
     {
         return $this->httpClient->baseUrl($this->baseUrl)
@@ -82,6 +89,8 @@ class Api
     }
 
     /**
+     * Standardized response format
+     *
      * @return Response
      *
      * @throws AuthenticationException
@@ -89,7 +98,7 @@ class Api
      */
     protected function response(): Response
     {
-        if ($this->latestResponse->status() === 403) {
+        if ($this->latestResponse->status() === 401) {
             throw new AuthenticationException($this->latestResponse->body());
         }
 

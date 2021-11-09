@@ -29,7 +29,6 @@ This is the contents of the published config file:
 return [
     'token' => env('TMDB_TOKEN'),
 ];
-
 ```
 
 Update the config file directly, or set the environment variable `TMDB_TOKEN` to your API key (*preferred*).

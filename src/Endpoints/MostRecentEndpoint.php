@@ -20,8 +20,6 @@ class MostRecentEndpoint
         ])->json('results');
 
 
-        // dd($this->cursor);
-
         $collection = new MovieCollection($data);
 
         return $collection;
