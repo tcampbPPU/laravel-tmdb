@@ -2,8 +2,8 @@
 
 namespace Tcamp\Tmdb\Facade;
 
-use Tcamp\Tmdb\Tmdb as TmdbManager;
 use Illuminate\Support\Facades\Facade;
+use Tcamp\Tmdb\Tmdb as TmdbManager;
 
 /**
  * @method static \Tcamp\Tmdb\Endpoints\MostRecentEndpoint recentMovies()
