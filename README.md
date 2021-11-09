@@ -20,7 +20,7 @@ This package contains a facade and a config file for Laravel applications.
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Tcamp\Tmdb\FathomServiceProvider" --tag="tmdb-config"
+php artisan vendor:publish --provider="Tcamp\Tmdb\TmdbServiceProvider" --tag="tmdb-config"
 ```
 
 This is the contents of the published config file:
