@@ -1,8 +1,8 @@
 <?php
 
-use Tcamp\Tmdb\Collections\MovieCollection;
-
 use function PHPUnit\Framework\assertInstanceOf;
+
+use Tcamp\Tmdb\Collections\MovieCollection;
 
 test('search movie by title', function () {
     httpClient()->fake([
@@ -12,5 +12,4 @@ test('search movie by title', function () {
     $searchResults = tmdb()->search('dune')->get();
 
     assertInstanceOf(MovieCollection::class, $searchResults);
-
 });

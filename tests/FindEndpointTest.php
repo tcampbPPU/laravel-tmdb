@@ -1,8 +1,8 @@
 <?php
 
-use Tcamp\Tmdb\Models\Movie;
-
 use function PHPUnit\Framework\assertInstanceOf;
+
+use Tcamp\Tmdb\Models\Movie;
 
 test('find movie by tmdb id', function () {
     $fakeMovie = recentMovieDataset()['results'][0];
