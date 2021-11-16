@@ -98,7 +98,7 @@ test('get account rated tv episodes', function () {
                 'still_path' => "/8gsO10PHQnMO0qqXKN58Dk9bBBm.jpg",
                 'vote_average' => 7.583,
                 'vote_count' => 6,
-                'rating' => 8
+                'rating' => 8,
               ],
             ],
             'total_pages' => 8,
