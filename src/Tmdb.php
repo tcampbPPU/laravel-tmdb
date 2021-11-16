@@ -2,6 +2,7 @@
 
 namespace Tcamp\Tmdb;
 
+use Tcamp\Tmdb\Endpoints\AccountEndpoint;
 use Tcamp\Tmdb\Endpoints\FindEndpoint;
 use Tcamp\Tmdb\Endpoints\MostRecentEndpoint;
 use Tcamp\Tmdb\Endpoints\SearchEndpoint;
@@ -10,6 +11,7 @@ use Tcamp\Tmdb\Endpoints\TrendingEndpoint;
 class Tmdb
 {
     public Api $api;
+    protected AccountEndpoint $account;
     protected MostRecentEndpoint $recentMovies;
     protected FindEndpoint $movie;
     protected SearchEndpoint $searchResults;
@@ -18,6 +20,11 @@ class Tmdb
     public function __construct(string $token)
     {
         $this->api = new Api($token);
+    }
+
+    public function account(): AccountEndpoint
+    {
+        return $this->account ??= new AccountEndpoint($this->api);
     }
 
     /**
