@@ -19,9 +19,32 @@ class SearchEndpoint
             'query' => $this->query,
         ])->json('results');
 
-
         $collection = new MovieCollection($data);
 
         return $collection;
     }
+
+    /**
+     * Companies
+     */
+
+    /**
+     * Collections
+     */
+    /**
+     * Keywords
+     */
+    /**
+     * Movies
+     */
+    /**
+     * People
+     */
+    /**
+     * TV
+     */
+    /**
+     * Multi Search
+     */
+
 }

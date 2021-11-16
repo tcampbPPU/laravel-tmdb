@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "felixfbecker.php-debug",
+        "valeryanm.vscode-phpsab"
+    ]
+}
