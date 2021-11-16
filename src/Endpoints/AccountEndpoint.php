@@ -29,12 +29,13 @@ class AccountEndpoint
      * @param string $sessionId
      * @return Account
      */
-    public function accountDetails(string $apiKey, string $sessionId): Account
+    public function details(string $apiKey, string $sessionId): Account
     {
         $data = $this->api->get('account', [
             'api_key' => $apiKey,
             'sessionId' => $sessionId,
-        ])->json();
+        ])
+            ->json();
 
         return new Account(...$data);
     }
@@ -51,14 +52,15 @@ class AccountEndpoint
      * @param string $language
      * @return AccountListCollection
      */
-    public function getAccountLists(int $accountId, string $apiKey, string $sessionId, int $page = 1, string $language = 'en-US'): AccountListCollection
+    public function createdList(int $accountId, string $apiKey, string $sessionId, int $page = 1, string $language = 'en-US'): AccountListCollection
     {
         $data = $this->api->get("account/{$accountId}/lists", [
             'api_key' => $apiKey,
             'sessionId' => $sessionId,
             'page' => $page,
             'language' => $language,
-        ])->json('results');
+        ])
+            ->json('results');
 
         $collection = new AccountListCollection($data);
 
@@ -78,7 +80,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return MovieCollection
      */
-    public function getAccountFavMovies(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    public function favoriteMovies(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -90,8 +92,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
-
+        ])
+            ->json('results');
 
         $collection = new MovieCollection($data);
 
@@ -111,7 +113,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return MovieCollection
      */
-    public function getAccountFavTvShows(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    public function favoriteTvShows(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -123,8 +125,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
-
+        ])
+            ->json('results');
 
         $collection = new MovieCollection($data);
 
@@ -157,7 +159,8 @@ class AccountEndpoint
             'media_type' => $mediaType,
             'media_id' => $mediaId,
             'favorite' => $favorite,
-        ])->json();
+        ])
+            ->json();
 
         return new Status(...$data);
     }
@@ -175,7 +178,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return MovieCollection
      */
-    public function getRatedMovies(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    public function ratedMovies(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -187,7 +190,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
+        ])
+            ->json('results');
 
         $collection = new MovieCollection($data);
 
@@ -207,7 +211,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return MovieCollection
      */
-    public function getRatedTvShows(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    public function ratedTvShows(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -219,7 +223,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
+        ])
+            ->json('results');
 
         $collection = new MovieCollection($data);
 
@@ -239,7 +244,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return EpisodeCollection
      */
-    public function getRatedTvEpisodes(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): EpisodeCollection
+    public function ratedTvEpisodes(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): EpisodeCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -251,7 +256,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
+        ])
+            ->json('results');
 
         $collection = new EpisodeCollection($data);
 
@@ -271,7 +277,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return MovieCollection
      */
-    public function getMovieWatchList(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    public function movieWatchList(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -283,7 +289,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
+        ])
+            ->json('results');
 
         $collection = new MovieCollection($data);
 
@@ -303,7 +310,7 @@ class AccountEndpoint
      * @param string $sortBy
      * @return MovieCollection
      */
-    public function getTvShowWatchList(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    public function tvShowWatchList(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
     {
         if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
             throw new IncorrectValueException('Incorrect sortBy option specified');
@@ -315,7 +322,8 @@ class AccountEndpoint
             'page' => $page,
             'language' => $language,
             'sort_by' => $sortBy,
-        ])->json('results');
+        ])
+            ->json('results');
 
         $collection = new MovieCollection($data);
 
@@ -348,7 +356,8 @@ class AccountEndpoint
             'media_type' => $mediaType,
             'media_id' => $mediaId,
             'watchlist' => $watchList,
-        ])->json();
+        ])
+            ->json();
 
         return new Status(...$data);
     }
