@@ -63,5 +63,4 @@ class MovieEndpoint
     /**
      * Get External ID's
      */
-
 }

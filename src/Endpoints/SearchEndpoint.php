@@ -46,5 +46,4 @@ class SearchEndpoint
     /**
      * Multi Search
      */
-
 }

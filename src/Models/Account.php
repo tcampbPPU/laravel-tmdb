@@ -31,6 +31,6 @@ class Account
         if (! is_null($avatar) && isset($avatar['gravatar']) && $avatar['gravatar']['hash']) {
             $gravatarHash = $avatar['gravatar']['hash'];
         }
-        $this->avatar_url = !is_null($gravatarHash) ? "https://www.gravatar.com/avatar/{$gravatarHash}" : null;
+        $this->avatar_url = ! is_null($gravatarHash) ? "https://www.gravatar.com/avatar/{$gravatarHash}" : null;
     }
 }
