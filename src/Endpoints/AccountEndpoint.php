@@ -4,10 +4,13 @@ namespace Tcamp\Tmdb\Endpoints;
 
 use Tcamp\Tmdb\Api;
 use Tcamp\Tmdb\Collections\AccountListCollection;
+use Tcamp\Tmdb\Collections\EpisodeCollection;
 use Tcamp\Tmdb\Collections\MovieCollection;
 use Tcamp\Tmdb\Enums\Sort;
+use Tcamp\Tmdb\Enums\Type;
 use Tcamp\Tmdb\Exceptions\IncorrectValueException;
 use Tcamp\Tmdb\Models\Account;
+use Tcamp\Tmdb\Models\Status;
 
 class AccountEndpoint
 {
@@ -93,5 +96,260 @@ class AccountEndpoint
         $collection = new MovieCollection($data);
 
         return $collection;
+    }
+
+    /**
+     * Get Account Favorite TV Shows
+     *
+     * @api GET
+     * @see https://developers.themoviedb.org/3/account/get-favorite-movies
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param int $page
+     * @param string $language
+     * @param string $sortBy
+     * @return MovieCollection
+     */
+    public function getAccountFavTvShows(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    {
+        if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
+            throw new IncorrectValueException('Incorrect sortBy option specified');
+        }
+
+        $data = $this->api->get("account/{$accountId}/favorite/tv", [
+            'api_key' => $apiKey,
+            'sessionId' => $sessionId,
+            'page' => $page,
+            'language' => $language,
+            'sort_by' => $sortBy,
+        ])->json('results');
+
+
+        $collection = new MovieCollection($data);
+
+        return $collection;
+    }
+
+    /**
+     * Mark as Favorite
+     *
+     * @api POST
+     * @see https://developers.themoviedb.org/3/account/mark-as-favorite
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param string $sessionId
+     * @param string $mediaType
+     * @param int $mediaId
+     * @param bool $favorite
+     * @return Status
+     */
+    public function markAsFavorite(int $accountId, string $apiKey, string $sessionId, string $mediaType, int $mediaId, bool $favorite): Status
+    {
+        if (! in_array($mediaType, [Type::MOVIE, Type::TV])) {
+            throw new IncorrectValueException('Incorrect mediaType option specified');
+        }
+
+        $data = $this->api->post("account/{$accountId}/favorite", [
+            'api_key' => $apiKey,
+            'session_id' => $sessionId,
+            'media_type' => $mediaType,
+            'media_id' => $mediaId,
+            'favorite' => $favorite,
+        ])->json();
+
+        return new Status(...$data);
+    }
+
+    /**
+     * Get List of Rated Movies
+     *
+     * @api GET
+     * @see https://developers.themoviedb.org/3/account/get-favorite-movies
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param int $page
+     * @param string $language
+     * @param string $sortBy
+     * @return MovieCollection
+     */
+    public function getRatedMovies(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    {
+        if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
+            throw new IncorrectValueException('Incorrect sortBy option specified');
+        }
+
+        $data = $this->api->get("account/{$accountId}/rated/movies", [
+            'api_key' => $apiKey,
+            'sessionId' => $sessionId,
+            'page' => $page,
+            'language' => $language,
+            'sort_by' => $sortBy,
+        ])->json('results');
+
+        $collection = new MovieCollection($data);
+
+        return $collection;
+    }
+
+    /**
+     * Get List of Rated TV Shows
+     *
+     * @api GET
+     * @see https://developers.themoviedb.org/3/account/get-favorite-movies
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param int $page
+     * @param string $language
+     * @param string $sortBy
+     * @return MovieCollection
+     */
+    public function getRatedTvShows(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    {
+        if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
+            throw new IncorrectValueException('Incorrect sortBy option specified');
+        }
+
+        $data = $this->api->get("account/{$accountId}/rated/tv", [
+            'api_key' => $apiKey,
+            'sessionId' => $sessionId,
+            'page' => $page,
+            'language' => $language,
+            'sort_by' => $sortBy,
+        ])->json('results');
+
+        $collection = new MovieCollection($data);
+
+        return $collection;
+    }
+
+    /**
+     * Get List of Rated TV Episodes
+     *
+     * @api GET
+     * @see https://developers.themoviedb.org/3/account/get-rated-tv-episodes
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param int $page
+     * @param string $language
+     * @param string $sortBy
+     * @return EpisodeCollection
+     */
+    public function getRatedTvEpisodes(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): EpisodeCollection
+    {
+        if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
+            throw new IncorrectValueException('Incorrect sortBy option specified');
+        }
+
+        $data = $this->api->get("account/{$accountId}/rated/tv/episodes", [
+            'api_key' => $apiKey,
+            'sessionId' => $sessionId,
+            'page' => $page,
+            'language' => $language,
+            'sort_by' => $sortBy,
+        ])->json('results');
+
+        $collection = new EpisodeCollection($data);
+
+        return $collection;
+    }
+
+    /**
+     * Get list of all the movies added to watch list
+     *
+     * @api GET
+     * @see https://developers.themoviedb.org/3/account/get-movie-watchlist
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param int $page
+     * @param string $language
+     * @param string $sortBy
+     * @return MovieCollection
+     */
+    public function getMovieWatchList(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    {
+        if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
+            throw new IncorrectValueException('Incorrect sortBy option specified');
+        }
+
+        $data = $this->api->get("account/{$accountId}/watchlist/movies", [
+            'api_key' => $apiKey,
+            'sessionId' => $sessionId,
+            'page' => $page,
+            'language' => $language,
+            'sort_by' => $sortBy,
+        ])->json('results');
+
+        $collection = new MovieCollection($data);
+
+        return $collection;
+    }
+
+    /**
+     * Get list of all the Tv shows added to watch list
+     *
+     * @api GET
+     * @see https://developers.themoviedb.org/3/account/get-tv-show-watchlist
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param int $page
+     * @param string $language
+     * @param string $sortBy
+     * @return MovieCollection
+     */
+    public function getTvShowWatchList(int $accountId, string $apiKey, string $sessionId, ?int $page = 1, ?string $language = 'en-US', ?string $sortBy = Sort::ASC): MovieCollection
+    {
+        if (isset($sortBy) && ! in_array($sortBy, Sort::values())) {
+            throw new IncorrectValueException('Incorrect sortBy option specified');
+        }
+
+        $data = $this->api->get("account/{$accountId}/watchlist/tv", [
+            'api_key' => $apiKey,
+            'sessionId' => $sessionId,
+            'page' => $page,
+            'language' => $language,
+            'sort_by' => $sortBy,
+        ])->json('results');
+
+        $collection = new MovieCollection($data);
+
+        return $collection;
+    }
+
+    /**
+     * Add a movie or TV show to watch list
+     *
+     * @api POST
+     * @see https://developers.themoviedb.org/3/account/add-to-watchlist
+     *
+     * @param int $accountId
+     * @param string $apiKey
+     * @param string $sessionId
+     * @param string $mediaType
+     * @param int $mediaId
+     * @param bool $watchList
+     * @return Status
+     */
+    public function addToWatchList(int $accountId, string $apiKey, string $sessionId, string $mediaType, int $mediaId, bool $watchList): Status
+    {
+        if (! in_array($mediaType, [Type::MOVIE, Type::TV])) {
+            throw new IncorrectValueException('Incorrect mediaType option specified');
+        }
+
+        $data = $this->api->post("account/{$accountId}/watchlist", [
+            'api_key' => $apiKey,
+            'session_id' => $sessionId,
+            'media_type' => $mediaType,
+            'media_id' => $mediaId,
+            'watchlist' => $watchList,
+        ])->json();
+
+        return new Status(...$data);
     }
 }

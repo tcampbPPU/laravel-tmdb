@@ -18,6 +18,7 @@ class Movie
      * @param float $popularity
      * @param string $poster_path
      * @param string $release_date
+     * @param string $first_air_date
      * @param string $title
      * @param bool $video
      * @param float $vote_average
@@ -47,6 +48,7 @@ class Movie
         public float $popularity,
         public string $poster_path,
         public string $release_date,
+        public ?string $first_air_date = null,
         public string $title,
         public bool $video,
         public float $vote_average,
@@ -68,5 +70,6 @@ class Movie
         $this->backdrop_path = "https://image.tmdb.org/t/p/w500{$backdrop_path}";
         $this->poster_path = "https://image.tmdb.org/t/p/w500{$poster_path}";
         $this->release_date = Carbon::parse($release_date);
+        $this->first_air_date = isset($first_air_date) ? Carbon::parse($first_air_date) : null;
     }
 }
