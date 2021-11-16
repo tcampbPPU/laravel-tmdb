@@ -10,14 +10,67 @@ function this(): TestCase
     return TestSuite::getInstance()->test;
 }
 
+function testAccountId(): int
+{
+    return 00000;
+}
+
+function testToken(): string
+{
+    return 'test-token';
+}
+
+function testSession(): string
+{
+    return 'test-session';
+}
+
 function tmdb(): Tmdb
 {
-    return this()->tmdb ??= new Tmdb('test-token');
+    return this()->tmdb ??= new Tmdb(testToken());
 }
 
 function httpClient(): Factory
 {
     return tmdb()->api->httpClient;
+}
+
+function accountDetailDataset()
+{
+    return [
+        'avatar' => [
+            'gravatar' => [
+                'hash' => "c9e9fc152ee756a900db85757c29815d",
+            ],
+        ],
+        'id' => 548,
+        'iso_639_1' => "en",
+        'iso_3166_1' => "CA",
+        'name' => "Travis Bell",
+        'include_adult' => true,
+        'username' => "travisbell",
+    ];
+}
+
+function accountCreatedLists()
+{
+    return [
+        'page' => 1,
+        'results' => [
+            [
+                'description' => "Name pretty much says it all, here's the top 50 grossing films of all time.",
+                'favorite_count' => 0,
+                'id' => 10,
+                'item_count' => 0,
+                'iso_639_1' => "en",
+                'list_type' => "movie",
+                'name' => "Top 50 Grossing Films of All Time (Worldwide)",
+                'poster_path' => null,
+            ],
+        ],
+        'total_pages' => 4,
+        'total_results' => 61,
+    ];
 }
 
 function recentMovieDataset()
