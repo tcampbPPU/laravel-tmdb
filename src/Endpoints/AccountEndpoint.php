@@ -102,7 +102,7 @@ class AccountEndpoint
      * Get Account Favorite TV Shows
      *
      * @api GET
-     * @see https://developers.themoviedb.org/3/account/get-favorite-movies
+     * @see https://developers.themoviedb.org/3/account/get-favorite-tv-shows
      *
      * @param int $accountId
      * @param string $apiKey
@@ -166,7 +166,7 @@ class AccountEndpoint
      * Get List of Rated Movies
      *
      * @api GET
-     * @see https://developers.themoviedb.org/3/account/get-favorite-movies
+     * @see https://developers.themoviedb.org/3/account/get-rated-movies
      *
      * @param int $accountId
      * @param string $apiKey
@@ -198,7 +198,7 @@ class AccountEndpoint
      * Get List of Rated TV Shows
      *
      * @api GET
-     * @see https://developers.themoviedb.org/3/account/get-favorite-movies
+     * @see https://developers.themoviedb.org/3/account/get-rated-tv-shows
      *
      * @param int $accountId
      * @param string $apiKey
