@@ -13,7 +13,7 @@ class Status
      */
     public function __construct(
         public int $status_code,
-        public string $status_message
+        public ?string $status_message = null
     ) {
     }
 }

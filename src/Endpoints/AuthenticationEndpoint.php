@@ -25,7 +25,8 @@ class AuthenticationEndpoint
     {
         $data = $this->api->get('authentication/guest_session/new', [
             'api_key' => $apiKey,
-        ])->json();
+        ])
+            ->json();
 
         return new Session(...$data);
     }
@@ -43,7 +44,8 @@ class AuthenticationEndpoint
     {
         $data = $this->api->get('authentication/token/new', [
             'api_key' => $apiKey,
-        ])->json();
+        ])
+            ->json();
 
         return new Session(...$data);
     }
@@ -63,7 +65,8 @@ class AuthenticationEndpoint
         $data = $this->api->post('authentication/session/new', [
             'api_key' => $apiKey,
             'request_token' => $requestToken,
-        ])->json();
+        ])
+            ->json();
 
         return new Session(...$data);
     }
@@ -86,7 +89,8 @@ class AuthenticationEndpoint
             'request_token' => $requestToken,
             'username' => $username,
             'password' => $password,
-        ])->json();
+        ])
+            ->json();
 
         return new Session(...$data);
     }
@@ -99,15 +103,14 @@ class AuthenticationEndpoint
      *
      * @param string $apiKey
      * @param string $sessionId
-     * @return Session
+     * @return array{success:bool}
      */
-    public function deleteSession(string $apiKey, string $sessionId): Session
+    public function deleteSession(string $apiKey, string $sessionId): array
     {
-        $data = $this->api->delete('authentication/session/new', [
+        return $this->api->delete('authentication/session/new', [
             'api_key' => $apiKey,
             'sessionId' => $sessionId,
-        ])->json();
-
-        return new Session(...$data);
+        ])
+            ->json();
     }
 }
