@@ -12,7 +12,7 @@ test('create guest session', function () {
         ], 200),
     ]);
 
-    $guestSession = tmdb()->auth()->createGuestSession(testToken());
+    $guestSession = tmdb()->auth()->createGuestSession();
 
     assertInstanceOf(Session::class, $guestSession);
 });
@@ -26,7 +26,7 @@ test('create request token', function () {
         ], 200),
     ]);
 
-    $requestToken = tmdb()->auth()->createRequestToken(testToken());
+    $requestToken = tmdb()->auth()->createRequestToken();
 
     assertInstanceOf(Session::class, $requestToken);
 });
@@ -39,7 +39,7 @@ test('create session', function () {
         ], 200),
     ]);
 
-    $session = tmdb()->auth()->createSession(testToken(), 'request-token');
+    $session = tmdb()->auth()->createSession('request-token');
 
     assertInstanceOf(Session::class, $session);
 });
@@ -53,7 +53,7 @@ test('create session with login info', function () {
         ], 200),
     ]);
 
-    $session = tmdb()->auth()->createSessionWithLogin(testToken(), 'request-token', 'username', 'password');
+    $session = tmdb()->auth()->createSessionWithLogin('request-token', 'username', 'password');
 
     assertInstanceOf(Session::class, $session);
 });
@@ -65,7 +65,7 @@ test('create delete session', function () {
         ], 200),
     ]);
 
-    $status = tmdb()->auth()->deleteSession(testToken(), testSession());
+    $status = tmdb()->auth()->deleteSession(testSession());
 
     expect($status)
         ->toBeArray()

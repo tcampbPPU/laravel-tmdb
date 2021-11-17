@@ -4,6 +4,7 @@ namespace Tcamp\Tmdb;
 
 use Tcamp\Tmdb\Endpoints\AccountEndpoint;
 use Tcamp\Tmdb\Endpoints\AuthenticationEndpoint;
+use Tcamp\Tmdb\Endpoints\ChangeEndpoint;
 use Tcamp\Tmdb\Endpoints\FindEndpoint;
 use Tcamp\Tmdb\Endpoints\MostRecentEndpoint;
 use Tcamp\Tmdb\Endpoints\SearchEndpoint;
@@ -14,6 +15,7 @@ class Tmdb
     public Api $api;
     protected AccountEndpoint $account;
     protected AuthenticationEndpoint $auth;
+    protected ChangeEndpoint $changes;
     protected MostRecentEndpoint $recentMovies;
     protected FindEndpoint $movie;
     protected SearchEndpoint $searchResults;
@@ -32,6 +34,11 @@ class Tmdb
     public function auth(): AuthenticationEndpoint
     {
         return $this->auth ??= new AuthenticationEndpoint($this->api);
+    }
+
+    public function changes(): ChangeEndpoint
+    {
+        return $this->changes ??= new ChangeEndpoint($this->api);
     }
 
     /**

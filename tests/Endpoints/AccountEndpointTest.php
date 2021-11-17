@@ -13,7 +13,7 @@ test('get account details endpoint', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(accountDetailDataset(), 200),
     ]);
 
-    $account = tmdb()->account()->details(testToken(), testSession());
+    $account = tmdb()->account()->details(testSession());
 
     assertInstanceOf(Account::class, $account);
 });
@@ -23,7 +23,7 @@ test('get account created list', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(accountCreatedLists(), 200),
     ]);
 
-    $lists = tmdb()->account()->createdList(testAccountId(), testToken(), testSession());
+    $lists = tmdb()->account()->createdList(testAccountId(), testSession());
 
     assertInstanceOf(AccountListCollection::class, $lists);
 });
@@ -33,7 +33,7 @@ test('get account favorite movies', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(recentMovieDataset(), 200),
     ]);
 
-    $favMovies = tmdb()->account()->favoriteMovies(testAccountId(), testToken(), testSession());
+    $favMovies = tmdb()->account()->favoriteMovies(testAccountId(), testSession());
 
     assertInstanceOf(MovieCollection::class, $favMovies);
 });
@@ -43,7 +43,7 @@ test('get account favorite tv shows', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(recentMovieDataset(), 200),
     ]);
 
-    $favTvShows = tmdb()->account()->favoriteTvShows(testAccountId(), testToken(), testSession());
+    $favTvShows = tmdb()->account()->favoriteTvShows(testAccountId(), testSession());
 
     assertInstanceOf(MovieCollection::class, $favTvShows);
 });
@@ -56,7 +56,7 @@ test('mark item as favorite', function () {
         ], 201),
     ]);
 
-    $status = tmdb()->account()->markAsFavorite(testAccountId(), testToken(), testSession(), 'movie', 123, true);
+    $status = tmdb()->account()->markAsFavorite(testAccountId(), testSession(), 'movie', 123, true);
 
     assertInstanceOf(Status::class, $status);
 });
@@ -66,7 +66,7 @@ test('get account rated movies', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(recentMovieDataset(), 200),
     ]);
 
-    $ratedMovies = tmdb()->account()->ratedMovies(testAccountId(), testToken(), testSession());
+    $ratedMovies = tmdb()->account()->ratedMovies(testAccountId(), testSession());
 
     assertInstanceOf(MovieCollection::class, $ratedMovies);
 });
@@ -76,7 +76,7 @@ test('get account rated tv shows', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(recentMovieDataset(), 200),
     ]);
 
-    $ratedTvShows = tmdb()->account()->ratedTvShows(testAccountId(), testToken(), testSession());
+    $ratedTvShows = tmdb()->account()->ratedTvShows(testAccountId(), testSession());
 
     assertInstanceOf(MovieCollection::class, $ratedTvShows);
 });
@@ -106,7 +106,7 @@ test('get account rated tv episodes', function () {
         ], 200),
     ]);
 
-    $ratedEpisodes = tmdb()->account()->ratedTvEpisodes(testAccountId(), testToken(), testSession());
+    $ratedEpisodes = tmdb()->account()->ratedTvEpisodes(testAccountId(), testSession());
 
     assertInstanceOf(EpisodeCollection::class, $ratedEpisodes);
 });
@@ -116,7 +116,7 @@ test('get account movie watch list', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(recentMovieDataset(), 200),
     ]);
 
-    $movieWatchList = tmdb()->account()->movieWatchList(testAccountId(), testToken(), testSession());
+    $movieWatchList = tmdb()->account()->movieWatchList(testAccountId(), testSession());
 
     assertInstanceOf(MovieCollection::class, $movieWatchList);
 });
@@ -126,7 +126,7 @@ test('get account tv show watch list', function () {
         'https://api.themoviedb.org/3/*' => httpClient()->response(recentMovieDataset(), 200),
     ]);
 
-    $tvShowWatchList = tmdb()->account()->tvShowWatchList(testAccountId(), testToken(), testSession());
+    $tvShowWatchList = tmdb()->account()->tvShowWatchList(testAccountId(), testSession());
 
     assertInstanceOf(MovieCollection::class, $tvShowWatchList);
 });
@@ -139,7 +139,7 @@ test('add item to watch list', function () {
         ], 201),
     ]);
 
-    $status = tmdb()->account()->addToWatchList(testAccountId(), testToken(), testSession(), 'movie', 123, true);
+    $status = tmdb()->account()->addToWatchList(testAccountId(), testSession(), 'movie', 123, true);
 
     assertInstanceOf(Status::class, $status);
 });

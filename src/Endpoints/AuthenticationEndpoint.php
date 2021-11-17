@@ -18,15 +18,11 @@ class AuthenticationEndpoint
      * @api GET
      * @see https://developers.themoviedb.org/3/authentication/create-guest-session
      *
-     * @param string $apiKey
      * @return Session
      */
-    public function createGuestSession(string $apiKey): Session
+    public function createGuestSession(): Session
     {
-        $data = $this->api->get('authentication/guest_session/new', [
-            'api_key' => $apiKey,
-        ])
-            ->json();
+        $data = $this->api->get('authentication/guest_session/new')->json();
 
         return new Session(...$data);
     }
@@ -37,15 +33,11 @@ class AuthenticationEndpoint
      * @api GET
      * @see https://developers.themoviedb.org/3/authentication/create-request-token
      *
-     * @param string $apiKey
      * @return Session
      */
-    public function createRequestToken(string $apiKey): Session
+    public function createRequestToken(): Session
     {
-        $data = $this->api->get('authentication/token/new', [
-            'api_key' => $apiKey,
-        ])
-            ->json();
+        $data = $this->api->get('authentication/token/new')->json();
 
         return new Session(...$data);
     }
@@ -56,14 +48,12 @@ class AuthenticationEndpoint
      * @api POST
      * @see https://developers.themoviedb.org/3/authentication/create-session
      *
-     * @param string $apiKey
      * @param string $requestToken
      * @return Session
      */
-    public function createSession(string $apiKey, string $requestToken): Session
+    public function createSession(string $requestToken): Session
     {
         $data = $this->api->post('authentication/session/new', [
-            'api_key' => $apiKey,
             'request_token' => $requestToken,
         ])
             ->json();
@@ -76,16 +66,14 @@ class AuthenticationEndpoint
      * @api POST
      * @see https://developers.themoviedb.org/3/authentication/validate-request-token
      *
-     * @param string $apiKey
      * @param string $requestToken
      * @param string $username
      * @param string $password
      * @return Session
      */
-    public function createSessionWithLogin(string $apiKey, string $requestToken, string $username, string $password): Session
+    public function createSessionWithLogin(string $requestToken, string $username, string $password): Session
     {
         $data = $this->api->post('authentication/session/new', [
-            'api_key' => $apiKey,
             'request_token' => $requestToken,
             'username' => $username,
             'password' => $password,
@@ -101,14 +89,12 @@ class AuthenticationEndpoint
      * @api DELETE
      * @see https://developers.themoviedb.org/3/authentication/delete-session
      *
-     * @param string $apiKey
      * @param string $sessionId
      * @return array{success:bool}
      */
-    public function deleteSession(string $apiKey, string $sessionId): array
+    public function deleteSession(string $sessionId): array
     {
         return $this->api->delete('authentication/session/new', [
-            'api_key' => $apiKey,
             'sessionId' => $sessionId,
         ])
             ->json();
