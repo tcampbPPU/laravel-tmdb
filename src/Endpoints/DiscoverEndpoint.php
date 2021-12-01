@@ -74,7 +74,7 @@ class DiscoverEndpoint
      *
      * @return array
      */
-    public function query():array
+    public function query(): array
     {
         return collect([
             'page' => $this->page,
