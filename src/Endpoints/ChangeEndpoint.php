@@ -27,7 +27,7 @@ class ChangeEndpoint
      *
      * @return Pagination
      */
-    public function movieChangeList() : Pagination
+    public function movieChangeList(): Pagination
     {
         $response = $this->api->get('movie/changes', $this->query())
             ->json();
@@ -48,7 +48,7 @@ class ChangeEndpoint
      *
      * @return Pagination
      */
-    public function tvChangeList() : Pagination
+    public function tvChangeList(): Pagination
     {
         $response = $this->api->get('tv/changes', $this->query())
             ->json();
@@ -69,7 +69,7 @@ class ChangeEndpoint
      *
      * @return Pagination
      */
-    public function personChangeList() : Pagination
+    public function personChangeList(): Pagination
     {
         $response = $this->api->get('person/changes', $this->query())
             ->json();
