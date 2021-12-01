@@ -2,11 +2,18 @@
 
 namespace Tcamp\Tmdb\Endpoints;
 
+use Carbon\Carbon;
+use DateTimeInterface;
 use Tcamp\Tmdb\Api;
 use Tcamp\Tmdb\Collections\ChangeCollection;
+use Tcamp\Tmdb\Models\Pagination;
 
 class ChangeEndpoint
 {
+    protected ?int $page = null;
+    protected ?string $startDate = null;
+    protected ?string $endDate = null;
+
     public function __construct(
         protected Api $api
     ) {
@@ -18,23 +25,19 @@ class ChangeEndpoint
      * @api GET
      * @see https://developers.themoviedb.org/3/changes/get-movie-change-list
      *
-     * @param int $page
-     * @param string $endDate
-     * @param string $startDate
-     * @return ChangeCollection
+     * @return Pagination
      */
-    public function movieChangeList(int $page = 1, ?string $endDate = null, ?string $startDate = null): ChangeCollection
+    public function movieChangeList() : Pagination
     {
-        $data = $this->api->get('movie/changes', [
-            'page' => $page,
-            'end_date' => $endDate,
-            'start_date' => $startDate,
-        ])
-            ->json('results');
+        $response = $this->api->get('movie/changes', $this->query())
+            ->json();
 
-        $collection = new ChangeCollection($data);
+        $data['page'] = data_get($response, 'page') ?? 1;
+        $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
+        $data['total_results'] = data_get($response, 'total_results') ?? 1;
+        $data['items'] = new ChangeCollection(data_get($response, 'results') ?? []);
 
-        return $collection;
+        return new Pagination(...$data);
     }
 
     /**
@@ -43,23 +46,19 @@ class ChangeEndpoint
      * @api GET
      * @see https://developers.themoviedb.org/3/changes/get-tv-change-list
      *
-     * @param int $page
-     * @param string $endDate
-     * @param string $startDate
-     * @return ChangeCollection
+     * @return Pagination
      */
-    public function tvChangeList(int $page = 1, ?string $endDate = null, ?string $startDate = null): ChangeCollection
+    public function tvChangeList() : Pagination
     {
-        $data = $this->api->get('tv/changes', [
-            'page' => $page,
-            'end_date' => $endDate,
-            'start_date' => $startDate,
-        ])
-            ->json('results');
+        $response = $this->api->get('tv/changes', $this->query())
+            ->json();
 
-        $collection = new ChangeCollection($data);
+        $data['page'] = data_get($response, 'page') ?? 1;
+        $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
+        $data['total_results'] = data_get($response, 'total_results') ?? 1;
+        $data['items'] = new ChangeCollection(data_get($response, 'results') ?? []);
 
-        return $collection;
+        return new Pagination(...$data);
     }
 
     /**
@@ -68,22 +67,91 @@ class ChangeEndpoint
      * @api GET
      * @see https://developers.themoviedb.org/3/changes/get-person-change-list
      *
-     * @param int $page
-     * @param string $endDate
-     * @param string $startDate
-     * @return ChangeCollection
+     * @return Pagination
      */
-    public function personChangeList(int $page = 1, ?string $endDate = null, ?string $startDate = null): ChangeCollection
+    public function personChangeList() : Pagination
     {
-        $data = $this->api->get('person/changes', [
-            'page' => $page,
-            'end_date' => $endDate,
-            'start_date' => $startDate,
+        $response = $this->api->get('person/changes', $this->query())
+            ->json();
+
+        $data['page'] = data_get($response, 'page') ?? 1;
+        $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
+        $data['total_results'] = data_get($response, 'total_results') ?? 1;
+        $data['items'] = new ChangeCollection(data_get($response, 'results') ?? []);
+
+        return new Pagination(...$data);
+    }
+
+    /**
+     * Set starting page
+     *
+     * @param int $page
+     * @return $this
+     */
+    public function page(int $page): self
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * Filter by date FROM
+     *
+     * @param  string|\DateTimeInterface  $date
+     * @return $this
+     *
+     * @throws \Carbon\Exceptions\InvalidFormatException
+     */
+    public function from(string|DateTimeInterface $date): self
+    {
+        $this->startDate = Carbon::parse($date)->format('Y-m-d H:i:s');
+
+        return $this;
+    }
+
+    /**
+     * Filter by date TO
+     *
+     * @param  string|\DateTimeInterface  $date
+     * @return $this
+     *
+     * @throws \Carbon\Exceptions\InvalidFormatException
+     */
+    public function to(string|DateTimeInterface $date): self
+    {
+        $this->endDate = Carbon::parse($date)->format('Y-m-d H:i:s');
+
+        return $this;
+    }
+
+    /**
+     * Filter by date
+     *
+     * @param  string|\DateTimeInterface  $from
+     * @param  string|\DateTimeInterface  $to
+     * @return $this
+     *
+     * @throws \Carbon\Exceptions\InvalidFormatException
+     */
+    public function between(string|DateTimeInterface $from, string | DateTimeInterface $to): self
+    {
+        return $this->from($from)->to($to);
+    }
+
+    /**
+     * Dump query
+     *
+     * @return array
+     */
+    public function query(): array
+    {
+        return collect([
+            'page' => $this->page,
+            'start_date' => $this->startDate,
+            'end_date' => $this->endDate,
         ])
-            ->json('results');
-
-        $collection = new ChangeCollection($data);
-
-        return $collection;
+            ->whereNotNull()
+            ->toArray();
     }
 }

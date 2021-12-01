@@ -2,6 +2,8 @@
 
 use function PHPUnit\Framework\assertInstanceOf;
 use Tcamp\Tmdb\Collections\ChangeCollection;
+use Tcamp\Tmdb\Models\Change;
+use Tcamp\Tmdb\Models\Pagination;
 
 beforeEach(function () {
     httpClient()->fake([
@@ -20,19 +22,29 @@ beforeEach(function () {
 });
 
 test('get movie change list', function () {
-    $movieChangeList = tmdb()->changes()->movieChangeList();
+    $movieChangeList = tmdb()
+        ->changes()
+        ->page(1)
+        ->between(now()->subDays(7)->startOfDay(), now())
+        ->movieChangeList();
 
-    assertInstanceOf(ChangeCollection::class, $movieChangeList);
+    assertInstanceOf(Pagination::class, $movieChangeList);
+    assertInstanceOf(ChangeCollection::class, $movieChangeList->items);
+    assertInstanceOf(Change::class, $movieChangeList->items[0]);
 });
 
 test('get tv change list', function () {
     $tvChangeList = tmdb()->changes()->tvChangeList();
 
-    assertInstanceOf(ChangeCollection::class, $tvChangeList);
+    assertInstanceOf(Pagination::class, $tvChangeList);
+    assertInstanceOf(ChangeCollection::class, $tvChangeList->items);
+    assertInstanceOf(Change::class, $tvChangeList->items[0]);
 });
 
 test('get person change list', function () {
     $personChangeList = tmdb()->changes()->personChangeList();
 
-    assertInstanceOf(ChangeCollection::class, $personChangeList);
+    assertInstanceOf(Pagination::class, $personChangeList);
+    assertInstanceOf(ChangeCollection::class, $personChangeList->items);
+    assertInstanceOf(Change::class, $personChangeList->items[0]);
 });
