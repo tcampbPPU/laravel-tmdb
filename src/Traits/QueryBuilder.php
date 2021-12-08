@@ -4,6 +4,7 @@ namespace Tcamp\Tmdb\Traits;
 
 use Carbon\Carbon;
 use Tcamp\Tmdb\Exceptions\IncorrectValueException;
+use Tcamp\Tmdb\Exceptions\InvalidPropertyException;
 
 trait QueryBuilder
 {
@@ -12,11 +13,12 @@ trait QueryBuilder
      *
      * @param int $page
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function page(int $page): ?self
+    public function page(int $page): self
     {
         if (! property_exists($this, 'page')) {
-            return null;
+            throw new InvalidPropertyException('Property page does not exists on' . $this::class);
         }
 
         $this->page = $page;
@@ -29,11 +31,12 @@ trait QueryBuilder
      *
      * @param string $search
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function search(string $search): ?self
+    public function search(string $search): self
     {
         if (! property_exists($this, 'query')) {
-            return null;
+            throw new InvalidPropertyException('Property query does not exists on' . $this::class);
         }
 
         $this->query = $search;
@@ -46,11 +49,12 @@ trait QueryBuilder
      *
      * @param string $lang
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function language(string $lang = 'em-US'): ?self
+    public function language(string $lang = 'em-US'): self
     {
         if (! property_exists($this, 'language')) {
-            return null;
+            throw new InvalidPropertyException('Property language does not exists on' . $this::class);
         }
 
         $matches = (bool) preg_match("/([a-z]{2})-([A-Z]{2})/", $lang);
@@ -69,11 +73,12 @@ trait QueryBuilder
       *
       * @param string $code
       * @return self
+      * @throws InvalidPropertyException
       */
-    public function region(string $code = 'US'): ?self
+    public function region(string $code = 'US'): self
     {
         if (! property_exists($this, 'region')) {
-            return null;
+            throw new InvalidPropertyException('Property region does not exists on' . $this::class);
         }
 
         $matches = (bool) preg_match("/^[A-Z]{2}$/", $code);
@@ -92,11 +97,12 @@ trait QueryBuilder
      *
      * @param bool $val
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function includeAdult(bool $val = true): ?self
+    public function includeAdult(bool $val = true): self
     {
         if (! property_exists($this, 'include_adult')) {
-            return null;
+            throw new InvalidPropertyException('Property include_adult does not exists on' . $this::class);
         }
 
         $this->include_adult = $val;
@@ -109,11 +115,12 @@ trait QueryBuilder
      *
      * @param int $year
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function year(int $year): ?self
+    public function year(int $year): self
     {
         if (! property_exists($this, 'year')) {
-            return null;
+            throw new InvalidPropertyException('Property year does not exists on' . $this::class);
         }
 
         $this->year = $year;
@@ -126,11 +133,12 @@ trait QueryBuilder
      *
      * @param int $year
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function releaseYear(int $year): ?self
+    public function releaseYear(int $year): self
     {
         if (! property_exists($this, 'primary_release_year')) {
-            return null;
+            throw new InvalidPropertyException('Property primary_release_year does not exists on' . $this::class);
         }
 
         $this->primary_release_year = $year;
@@ -143,11 +151,12 @@ trait QueryBuilder
      *
      * @param int $year
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function firstAirDate(int $year): ?self
+    public function firstAirDate(int $year): self
     {
         if (! property_exists($this, 'first_air_date_year')) {
-            return null;
+            throw new InvalidPropertyException('Property first_air_date_year does not exists on' . $this::class);
         }
 
         $this->first_air_date_year = $year;
@@ -160,11 +169,12 @@ trait QueryBuilder
      *
      * @param string $value
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function sort(string $value): ?self
+    public function sort(string $value): self
     {
         if (! property_exists($this, 'sort_by')) {
-            return null;
+            throw new InvalidPropertyException('Property sort_by does not exists on' . $this::class);
         }
 
         $allowed = [
@@ -197,11 +207,12 @@ trait QueryBuilder
      *
      * @param string $certification
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function certification(string $certification): ?self
+    public function certification(string $certification): self
     {
         if (! property_exists($this, 'certification')) {
-            return null;
+            throw new InvalidPropertyException('Property certification does not exists on' . $this::class);
         }
 
         $this->certification = $certification;
@@ -213,11 +224,12 @@ trait QueryBuilder
      *
      * @param string $country
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function certificationCountry(string $country): ?self
+    public function certificationCountry(string $country): self
     {
         if (! property_exists($this, 'certification_country')) {
-            return null;
+            throw new InvalidPropertyException('Property certification_country does not exists on' . $this::class);
         }
 
         $this->certification_country = $country;
@@ -229,11 +241,12 @@ trait QueryBuilder
      *
      * @param string $country
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function certificationCountryLte(string $country): ?self
+    public function certificationCountryLte(string $country): self
     {
         if (! property_exists($this, 'certification_lte')) {
-            return null;
+            throw new InvalidPropertyException('Property certification_lte does not exists on' . $this::class);
         }
 
         $this->certification_lte = $country;
@@ -245,11 +258,12 @@ trait QueryBuilder
      *
      * @param string $country
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function certificationCountryGte(string $country): ?self
+    public function certificationCountryGte(string $country): self
     {
         if (! property_exists($this, 'certification_gte')) {
-            return null;
+            throw new InvalidPropertyException('Property certification_gte does not exists on' . $this::class);
         }
 
         $this->certification_gte = $country;
@@ -262,11 +276,12 @@ trait QueryBuilder
      *
      * @param bool $val
      * @return $this
+     * @throws InvalidPropertyException
      */
-    public function includeVideo(bool $val = true): ?self
+    public function includeVideo(bool $val = true): self
     {
         if (! property_exists($this, 'include_video')) {
-            return null;
+            throw new InvalidPropertyException('Property include_video does not exists on' . $this::class);
         }
 
         $this->include_video = $val;
@@ -279,11 +294,12 @@ trait QueryBuilder
      *
      * @param string $date
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function releaseDateGte(string $date): ?self
+    public function releaseDateGte(string $date): self
     {
         if (! property_exists($this, 'primary_release_date_gte')) {
-            return null;
+            throw new InvalidPropertyException('Property primary_release_date_gte does not exists on' . $this::class);
         }
 
         $this->primary_release_date_gte = Carbon::parse($date)->format('Y-m-d');
@@ -296,11 +312,12 @@ trait QueryBuilder
      *
      * @param string $date
      * @return self
+     * @throws InvalidPropertyException
      */
-    public function releaseDateLte(string $date): ?self
+    public function releaseDateLte(string $date): self
     {
         if (! property_exists($this, 'primary_release_date_lte')) {
-            return null;
+            throw new InvalidPropertyException('Property primary_release_date_lte does not exists on' . $this::class);
         }
 
         $this->primary_release_date_lte = Carbon::parse($date)->format('Y-m-d');
