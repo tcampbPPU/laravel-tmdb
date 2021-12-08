@@ -11,6 +11,7 @@ class DiscoverEndpoint
 {
     use QueryBuilder;
 
+    protected int $page = 1;
     protected string $sort_by = 'popularity.desc';
     protected ?string $language = null;
     protected ?string $region = null;
@@ -20,7 +21,6 @@ class DiscoverEndpoint
     protected ?string $certification_gte = null;
     protected ?bool $include_adult = null;
     protected ?bool $include_video = null;
-    protected int $page = 1;
     protected ?int $primary_release_year = null;
     protected ?string $primary_release_date_gte = null;
     protected ?string $primary_release_date_lte = null;
