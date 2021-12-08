@@ -20,7 +20,7 @@ class Tmdb
     protected DiscoverEndpoint $discovery;
     protected MostRecentEndpoint $recentMovies;
     protected FindEndpoint $movie;
-    protected SearchEndpoint $searchResults;
+    protected SearchEndpoint $search;
     protected TrendingEndpoint $trendingResults;
 
     public function __construct(string $token)
@@ -48,6 +48,13 @@ class Tmdb
         return $this->discovery ??= new DiscoverEndpoint($this->api);
     }
 
+    public function search(): SearchEndpoint
+    {
+        return $this->search ??= new SearchEndpoint($this->api);
+    }
+
+    // --
+
     /**
      * Get recent movies
      *
@@ -67,17 +74,6 @@ class Tmdb
     public function find(int $id): FindEndpoint
     {
         return $this->movie ??= new FindEndpoint($this->api, $id);
-    }
-
-    /**
-     * Search for movies
-     *
-     * @param string $query
-     * @return SearchEndpoint
-     */
-    public function search(string $query): SearchEndpoint
-    {
-        return $this->searchResults ??= new SearchEndpoint($this->api, $query);
     }
 
     /**
