@@ -51,12 +51,12 @@ trait QueryBuilder
         return $this;
     }
 
-   /**
-     * Specify a ISO 3166-1 code to filter release dates. Must be uppercase.
-     *
-     * @param string $code
-     * @return self
-     */
+    /**
+      * Specify a ISO 3166-1 code to filter release dates. Must be uppercase.
+      *
+      * @param string $code
+      * @return self
+      */
     public function region(string $code = 'US'): self
     {
         $matches = (bool) preg_match("/^[A-Z]{2}$/", $code);
@@ -121,5 +121,4 @@ trait QueryBuilder
 
         return $this;
     }
-
 }
