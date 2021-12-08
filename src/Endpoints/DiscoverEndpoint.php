@@ -31,11 +31,11 @@ class DiscoverEndpoint
     }
 
     /**
-     * Dump query
+     * Dump query builder
      *
      * @return array
      */
-    public function query(): array
+    public function builder(): array
     {
         return collect([
             'page' => $this->page,
@@ -64,7 +64,7 @@ class DiscoverEndpoint
      */
     public function movies(): Pagination
     {
-        $response = $this->api->get('discover/movie', $this->query())->json();
+        $response = $this->api->get('discover/movie', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -84,7 +84,7 @@ class DiscoverEndpoint
      */
     public function shows(): Pagination
     {
-        $response = $this->api->get('discover/tv', $this->query())->json();
+        $response = $this->api->get('discover/tv', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;

@@ -29,7 +29,7 @@ class ChangeEndpoint
      */
     public function movieChangeList(): Pagination
     {
-        $response = $this->api->get('movie/changes', $this->query())
+        $response = $this->api->get('movie/changes', $this->builder())
             ->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
@@ -50,7 +50,7 @@ class ChangeEndpoint
      */
     public function tvChangeList(): Pagination
     {
-        $response = $this->api->get('tv/changes', $this->query())
+        $response = $this->api->get('tv/changes', $this->builder())
             ->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
@@ -71,7 +71,7 @@ class ChangeEndpoint
      */
     public function personChangeList(): Pagination
     {
-        $response = $this->api->get('person/changes', $this->query())
+        $response = $this->api->get('person/changes', $this->builder())
             ->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
@@ -140,11 +140,11 @@ class ChangeEndpoint
     }
 
     /**
-     * Dump query
+     * Dump query builder
      *
      * @return array
      */
-    public function query(): array
+    public function builder(): array
     {
         return collect([
             'page' => $this->page,

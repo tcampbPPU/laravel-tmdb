@@ -26,11 +26,11 @@ class SearchEndpoint
     }
 
     /**
-     * Dump query
+     * Dump query builder
      *
      * @return array
      */
-    public function query(): array
+    public function builder(): array
     {
         return collect([
             'page' => $this->page,
@@ -56,7 +56,7 @@ class SearchEndpoint
      */
     public function companies(): Pagination
     {
-        $response = $this->api->get('search/company', $this->query())->json();
+        $response = $this->api->get('search/company', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -76,7 +76,7 @@ class SearchEndpoint
      */
     public function collections(): Pagination
     {
-        $response = $this->api->get('search/collection', $this->query())->json();
+        $response = $this->api->get('search/collection', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -96,7 +96,7 @@ class SearchEndpoint
      */
     public function keywords(): Pagination
     {
-        $response = $this->api->get('search/keyword', $this->query())->json();
+        $response = $this->api->get('search/keyword', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -116,7 +116,7 @@ class SearchEndpoint
      */
     public function movies(): Pagination
     {
-        $response = $this->api->get('search/movie', $this->query())->json();
+        $response = $this->api->get('search/movie', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -136,7 +136,7 @@ class SearchEndpoint
      */
     public function shows(): Pagination
     {
-        $response = $this->api->get('search/tv', $this->query())->json();
+        $response = $this->api->get('search/tv', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -156,7 +156,7 @@ class SearchEndpoint
      */
     public function people(): Pagination
     {
-        $response = $this->api->get('search/person', $this->query())->json();
+        $response = $this->api->get('search/person', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
@@ -176,7 +176,7 @@ class SearchEndpoint
      */
     public function all(): Pagination
     {
-        $response = $this->api->get('search/multi', $this->query())->json();
+        $response = $this->api->get('search/multi', $this->builder())->json();
 
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;

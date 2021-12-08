@@ -27,13 +27,13 @@ trait QueryBuilder
     }
 
     /**
-     * Set starting page
+     * Set query field
      *
      * @param string $search
      * @return self
      * @throws InvalidPropertyException
      */
-    public function search(string $search): self
+    public function query(string $search): self
     {
         if (! property_exists($this, 'query')) {
             throw new InvalidPropertyException('Property query does not exists on' . $this::class);
