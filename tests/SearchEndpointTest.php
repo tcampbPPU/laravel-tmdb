@@ -25,7 +25,7 @@ test('search companies by name', function () {
                     'origin_country' => 'RU',
                 ],
             ],
-        ], 200)
+        ], 200),
     ]);
 
     $searchResults = tmdb()
@@ -57,7 +57,7 @@ test('search collections by name', function () {
                     'poster_path' => "fbeJ7f0aD4A112Bc1tnpzyn82xO.jpg",
                 ],
             ],
-        ], 200)
+        ], 200),
     ]);
 
 
