@@ -6,6 +6,7 @@ use Tcamp\Tmdb\Api;
 use Tcamp\Tmdb\Collections\CompanyCollection;
 use Tcamp\Tmdb\Collections\MovieCollection;
 use Tcamp\Tmdb\Collections\SearchEntityCollection;
+use Tcamp\Tmdb\Collections\SelectionCollection;
 use Tcamp\Tmdb\Models\Pagination;
 use Tcamp\Tmdb\Models\SearchResults;
 use Tcamp\Tmdb\Traits\QueryBuilder;
@@ -84,7 +85,7 @@ class SearchEndpoint
         $data['page'] = data_get($response, 'page') ?? 1;
         $data['total_pages'] = data_get($response, 'total_pages') ?? 1;
         $data['total_results'] = data_get($response, 'total_results') ?? 1;
-        $data['items'] = new MovieCollection(data_get($response, 'results') ?? []);
+        $data['items'] = new SelectionCollection(data_get($response, 'results') ?? []);
 
         return new Pagination(...$data);
     }
