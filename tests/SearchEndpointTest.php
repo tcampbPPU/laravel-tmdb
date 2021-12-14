@@ -2,9 +2,9 @@
 
 use function PHPUnit\Framework\assertInstanceOf;
 
-use Tcamp\Tmdb\Collections\MovieCollection;
-use Tcamp\Tmdb\Models\Movie;
-use Tcamp\Tmdb\Models\Pagination;
+use Tcamp\Tmdb\Collections\SearchEntityCollection;
+use Tcamp\Tmdb\Models\SearchEntity;
+use Tcamp\Tmdb\Models\SearchResults;
 
 test('search movie by title', function () {
     httpClient()->fake([
@@ -13,7 +13,7 @@ test('search movie by title', function () {
 
     $searchResults = tmdb()->search()->movies('dune');
 
-    assertInstanceOf(Pagination::class, $searchResults);
-    assertInstanceOf(MovieCollection::class, $searchResults->items);
-    assertInstanceOf(Movie::class, $searchResults->items[0]);
+    assertInstanceOf(SearchResults::class, $searchResults);
+    assertInstanceOf(SearchEntityCollection::class, $searchResults->results);
+    assertInstanceOf(SearchEntity::class, $searchResults->results[0]);
 });

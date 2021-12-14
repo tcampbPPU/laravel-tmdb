@@ -36,6 +36,7 @@ class Movie
      * @param array{iso_3166_1:string, name:string} $production_countries
      * @param int $revenue
      * @param int $runtime
+     * @param int $gender
      * @param array{english_name:string, iso_639_1:string, name:string} $spoken_languages
      * @param string $status
      * @param string $tagline
@@ -69,6 +70,7 @@ class Movie
         public ?array $production_countries = null,
         public ?int $revenue = null,
         public ?int $runtime = null,
+        public ?int $gender = null,
         public ?array $spoken_languages = null,
         public ?string $status = null,
         public ?string $tagline = null,
