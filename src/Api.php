@@ -14,7 +14,7 @@ class Api
     public Response $latestResponse;
 
     // Utilizing version 3 of the API
-    protected string $baseUrl = 'https://api.themoviedb.org/3/';
+    protected string $baseUrl = 'https://api.themoviedb.org/4/';
 
     public function __construct(
         protected string $token
