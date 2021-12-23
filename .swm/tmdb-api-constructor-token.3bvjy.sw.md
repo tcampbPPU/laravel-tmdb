@@ -1,6 +1,6 @@
 ---
 id: 3bvjy
-name: Tmdb API contractor token
+name: Tmdb API constructor token
 file_version: 1.0.2
 app_version: 0.7.0-1
 file_blobs:
